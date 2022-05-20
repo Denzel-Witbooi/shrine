@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,6 +83,11 @@ public class ProductGridFragment extends Fragment {
             //  set the Toolbar to be used as an ActionBar using setSupportActionBar
             activity.setSupportActionBar(toolbar);
         }
+
+        toolbar.setNavigationOnClickListener(new NavigationIconClickListener(
+                getContext(),
+                view.findViewById(R.id.product_grid),
+                new AccelerateDecelerateInterpolator()));
     }
     // to inflate the contents of shr_toolbar_menu.xml into the toolbar:
     @Override
