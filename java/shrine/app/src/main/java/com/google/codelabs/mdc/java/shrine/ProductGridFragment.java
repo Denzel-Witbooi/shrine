@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.codelabs.mdc.java.shrine.network.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.staggeredgridlayout.StaggeredProductCardRecyclerViewAdapter;
 
 public class ProductGridFragment extends Fragment {
 
@@ -46,15 +47,20 @@ public class ProductGridFragment extends Fragment {
         // Set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(
-                ProductEntry.initProductEntryList(getResources())
-        );
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position % 3 == 2 ? 2 : 1;
+            }
+        });
+        recyclerView.setLayoutManager(gridLayoutManager);
+        StaggeredProductCardRecyclerViewAdapter adapter = new StaggeredProductCardRecyclerViewAdapter(
+                ProductEntry.initProductEntryList(getResources()));
         recyclerView.setAdapter(adapter);
-        int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
-        int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
-        recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding,smallPadding));
-
+        int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_large);
+        int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_staggered_product_grid_spacing_small);
+        recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
         return view;
     }
 
