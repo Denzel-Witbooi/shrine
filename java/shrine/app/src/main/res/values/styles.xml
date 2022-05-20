@@ -52,6 +52,11 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
+<!--    BACKDROP -->
+    <style name="Widget.Shrine.Backdrop" parent="">
+        <item name="android:background">?attr/colorAccent</item>
+    </style>
+
 <!--  Try another theme -->
     <style name="Theme.Shrine.Autumn" parent="Theme.Shrine">
         <item name="colorPrimary">#FFCF44</item>
